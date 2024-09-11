@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { errorHandler } from "../Utils/error.js";
+// import { errorHandler } from "../Utils/error.js";
 
 export const signup = async (req, res, next) => {
   const { username, email, password, confirmPassword, gender } = req.body;
@@ -18,7 +18,9 @@ export const signup = async (req, res, next) => {
   }
 
   if (password !== confirmPassword) {
-    return next(errorHandler(400, "Password don't match"));
+    return res.status(400).json({
+      error: "Password don't match",
+    });
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -47,7 +49,10 @@ export const signup = async (req, res, next) => {
       profilePic: newUser.profilePic,
     });
   } catch (error) {
-    next(error);
+    console.log("Error " + error);
+    res.status(500).json({
+      error: "Internal server error",
+    });
   }
 };
 

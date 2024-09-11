@@ -1,29 +1,30 @@
-import express from "express"
-import mongoose from "mongoose"
-import dotenv from "dotenv"
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import authRoute from "./routes/authRoutes.js";
 
-dotenv.config()
+dotenv.config();
+const app = express();
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
 //database connect
 mongoose
   .connect(process.env.Database_Uri)
   .then(() => {
-    console.log("Database is connected")
+    console.log("Database is connected");
   })
   .catch((err) => {
-    console.log(err)
-  })
-
-const app = express();
+    console.log(err);
+  });
 
 app.get("/", (req, res) => {
-  res.send("Hello World")
-})
+  res.send("Hello World");
+});
+
+//routes
+app.use("/api/auth", authRoute);
 
 app.listen(PORT, () => {
-  console.log("Server is running on port " + PORT)
-})
-
-
+  console.log("Server is running on port " + PORT);
+});

@@ -1,7 +1,6 @@
 import Conversation from "../models/converstionModel.js";
 import Message from "../models/messageModel.js";
 
-
 export const sendMsg = async (req, res, next) => {
   try {
     const { message } = req.body;
@@ -9,35 +8,56 @@ export const sendMsg = async (req, res, next) => {
     const senderId = req.user.id;
 
     let conversation = await Conversation.findOne({
-        participants: {$all: [senderId, receiverId]},
-    })
+      participants: { $all: [senderId, receiverId] },
+    });
 
     if (!conversation) {
-        conversation = await Conversation.create({
-          participants: [senderId, receiverId],
-        })
-      }
-  
-      const newMessage = new Message({
-        senderId,
-        receiverId,
-        message,
-      })
-  
-      if (newMessage) {
-        conversation.messages.push(newMessage._id)
-      }
-  
-      await Promise.all([conversation.save(), newMessage.save()])
-  
-      // socket io functionality
+      conversation = await Conversation.create({
+        participants: [senderId, receiverId],
+      });
+    }
+
+    const newMessage = new Message({
+      senderId,
+      receiverId,
+      message,
+    });
+
+    if (newMessage) {
+      conversation.messages.push(newMessage._id);
+    }
+
+    await Promise.all([conversation.save(), newMessage.save()]);
+
+    // socket io functionality
     //   const receiverSocketId = getReceiverSocketId(receiverId)
-  
+
     //   if (receiverSocketId) {
     //     io.to(receiverSocketId).emit("newMessage", newMessage)
     //   }
-  
-      res.status(201).json(newMessage)
+
+    res.status(201).json(newMessage);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getMsg = async (req, res, next) => {
+  try {
+    const { id: userToMessage } = req.params;
+    const senderId = req.user.id;
+
+    const conversation = await Conversation.findOne({
+      participants: { $all: [senderId, userToMessage] },
+    }).populate("messages");
+
+    if (!conversation) {
+      return res.status(200).json([]);
+    }
+
+    const messages = conversation.messages;
+
+    res.status(200).json(messages);
   } catch (error) {
     next(error);
   }

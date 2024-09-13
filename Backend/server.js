@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./routes/authRoutes.js";
+import msgRoute from "./routes/msgRoute.js";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 
 //routes
 app.use("/api/auth", authRoute);
+app.use("/api/message", msgRoute);
 
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT);

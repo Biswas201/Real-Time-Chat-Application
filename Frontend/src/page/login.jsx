@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-md bg-gray-300">
+    <div className="flex flex-col items-center justify-center min-w-96 mx-auto shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
+      <div className="w-full p-6 rounded-lg shadow-md bg-gradient-to-r from-cyan-500 to-blue-500">
         <h1 className="text-3xl font-semibold text-center text-slate-600">
           Login to
-          <span className="text-blue-500">Real Time Chat Application</span>
+          <span className="text-black"> AB Chat Application</span>
         </h1>
 
         <form>
@@ -46,8 +46,8 @@ const Login = () => {
           </Link>
 
           <div>
-            <button className="btn btn-block btn-sm mt-2 bg-blue-700 font-bold text-white">
-              Login
+            <button className="btn btn-block btn-sm mt-2 bg-gray-900 font-bold text-white before:ease relative overflow-hidden border border-black shadow-2xl before:absolute before:left-0 before:-ml-2 before:h-48 before:w-48 before:origin-top-right before:-translate-x-full before:translate-y-12 before:-rotate-90 before:bg-gray-900 before:transition-all before:duration-300 hover:text-white hover:shadow-black hover:before:-rotate-180">
+              <span className="relative z-10">Login</span>
             </button>
           </div>
         </form>

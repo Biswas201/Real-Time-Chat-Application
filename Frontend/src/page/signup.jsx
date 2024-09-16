@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import GendercheckBox from "../component/GendercheckBox";
 
 const Signup = () => {
   return (
@@ -67,10 +68,7 @@ const Signup = () => {
               // }
             />
           </div>
-          {/* <GenderCheckbox
-            onCheckboxChange={handleCheckboxChange}
-            selectedGender={formData.gender}
-          /> */}
+          <GendercheckBox/>
 
           <Link
             to={"/login"}

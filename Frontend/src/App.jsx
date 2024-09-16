@@ -1,15 +1,17 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./page/Home";
+import Login from "./page/login";
+import Signup from "./page/signup";
 
 const App = () => {
   return (
-    <div>
-      <button className="btn">Button</button>
-<button className="btn btn-neutral">Neutral</button>
-<button className="btn btn-primary">Primary</button>
-<button className="btn btn-secondary">Secondary</button>
-<button className="btn btn-accent">Accent</button>
-<button className="btn btn-ghost">Ghost</button>
-<button className="btn btn-link">Link</button>
+    <div className="p-4 h-screen flex items-center justify-center">
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/signup" element={<Signup/>}/>
+      </Routes>
     </div>
   )
 };

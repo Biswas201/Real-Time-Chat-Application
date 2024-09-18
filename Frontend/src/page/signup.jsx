@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import GendercheckBox from "../component/GendercheckBox";
+import useSignup from "../hooks/useSignup.js";
 
 const Signup = () => {
+  const [data, setData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    gender: "",
+  });
+
+  const { loading, signup } = useSignup()
+
+  const handleCheckboxChange = (gender) =>{
+    setData({...data, gender})
+  }
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+
+    await signup(data)
+}
+
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
       <div className="w-full p-6 rounded-lg shadow-md bg-gradient-to-r from-blue-400 to-cyan-300">
@@ -11,7 +32,7 @@ const Signup = () => {
           <span className="text-blue-500"> AB Chat Application</span>
         </h1>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text">Username</span>
@@ -21,6 +42,8 @@ const Signup = () => {
               type="text"
               placeholder="Enter Username"
               className="w-full input input-bordered h-10"
+              value={data.username}
+              onChange={(e) => setData({ ...data, username: e.target.value })}
             />
           </div>
           <div>
@@ -30,12 +53,10 @@ const Signup = () => {
 
             <input
               type="email"
-              placeholder="example@gmail.com"
+              placeholder="enter your email"
               className="w-full input input-bordered h-10"
-              // value={formData.email}
-              // onChange={(e) =>
-              //   setFormData({ ...formData, email: e.target.value })
-              // }
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
             />
           </div>
           <div>
@@ -47,10 +68,10 @@ const Signup = () => {
               type="password"
               placeholder="Enter Password"
               className="w-full input input-bordered h-10"
-              // value={formData.password}
-              // onChange={(e) =>
-              //   setFormData({ ...formData, password: e.target.value })
-              // }
+              value={data.password}
+              onChange={(e) =>
+                setData({ ...data, password: e.target.value })
+              }
             />
           </div>
           <div>
@@ -62,13 +83,17 @@ const Signup = () => {
               type="password"
               placeholder="Confirm Password"
               className="w-full input input-bordered h-10"
-              // value={formData.confirmPassword}
-              // onChange={(e) =>
-              //   setFormData({ ...formData, confirmPassword: e.target.value })
-              // }
+              value={data.confirmPassword}
+              onChange={(e) =>
+                setData({ ...data, confirmPassword: e.target.value })
+              }
             />
           </div>
-          <GendercheckBox/>
+
+          <GendercheckBox
+            onCheckboxChange={handleCheckboxChange}
+            selectedGender={data.gender}
+          />
 
           <Link
             to={"/login"}
@@ -78,7 +103,7 @@ const Signup = () => {
           </Link>
 
           <div>
-          <button className="btn btn-block btn-sm mt-2 bg-gray-900 font-bold text-white before:ease relative overflow-hidden border border-black shadow-2xl before:absolute before:left-0 before:-ml-2 before:h-48 before:w-48 before:origin-top-right before:-translate-x-full before:translate-y-12 before:-rotate-90 before:bg-gray-900 before:transition-all before:duration-300 hover:text-white hover:shadow-black hover:before:-rotate-180">
+            <button className="btn btn-block btn-sm mt-2 bg-gray-900 font-bold text-white before:ease relative overflow-hidden border border-black shadow-2xl before:absolute before:left-0 before:-ml-2 before:h-48 before:w-48 before:origin-top-right before:-translate-x-full before:translate-y-12 before:-rotate-90 before:bg-gray-900 before:transition-all before:duration-300 hover:text-white hover:shadow-black hover:before:-rotate-180">
               <span className="relative z-10">Sign Up</span>
             </button>
           </div>

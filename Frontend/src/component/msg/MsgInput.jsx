@@ -3,11 +3,12 @@ import { BsSend } from "react-icons/bs";
 
 const MsgInput = () => {
   return (
-    <form className="px-4 my-3">
+    <div className="bg-gradient-to-r from-cyan-200 to-blue-300">
+      <form className="px-4 my-3">
       <div className="w-full relative">
         <input
           type="text"
-          className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-300 text-white"
+          className="border text-sm rounded-lg block w-full p-2.5 bg-gray-300 border-gray-300 text-white"
           placeholder="Enter your text.."
         />
 
@@ -19,6 +20,7 @@ const MsgInput = () => {
         </button>
       </div>
     </form>
+    </div>
   );
 };
 

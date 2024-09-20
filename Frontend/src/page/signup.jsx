@@ -12,17 +12,17 @@ const Signup = () => {
     gender: "",
   });
 
-  const { loading, signup } = useSignup()
+  const { loading, signup } = useSignup();
 
-  const handleCheckboxChange = (gender) =>{
-    setData({...data, gender})
-  }
+  const handleCheckboxChange = (gender) => {
+    setData({ ...data, gender });
+  };
 
-  const handleSubmit = async (e) =>{
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    await signup(data)
-}
+    await signup(data);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
@@ -69,9 +69,7 @@ const Signup = () => {
               placeholder="Enter Password"
               className="w-full input input-bordered h-10"
               value={data.password}
-              onChange={(e) =>
-                setData({ ...data, password: e.target.value })
-              }
+              onChange={(e) => setData({ ...data, password: e.target.value })}
             />
           </div>
           <div>
@@ -103,8 +101,15 @@ const Signup = () => {
           </Link>
 
           <div>
-            <button className="btn btn-block btn-sm mt-2 bg-gray-900 font-bold text-white before:ease relative overflow-hidden border border-black shadow-2xl before:absolute before:left-0 before:-ml-2 before:h-48 before:w-48 before:origin-top-right before:-translate-x-full before:translate-y-12 before:-rotate-90 before:bg-gray-900 before:transition-all before:duration-300 hover:text-white hover:shadow-black hover:before:-rotate-180">
-              <span className="relative z-10">Sign Up</span>
+            <button
+              className="btn btn-block btn-sm mt-2 bg-gray-900 font-bold text-white before:ease relative overflow-hidden border border-black shadow-2xl before:absolute before:left-0 before:-ml-2 before:h-48 before:w-48 before:origin-top-right before:-translate-x-full before:translate-y-12 before:-rotate-90 before:bg-gray-900 before:transition-all before:duration-300 hover:text-white hover:shadow-black hover:before:-rotate-180"
+              disabled={loading}
+            >
+              {!loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </div>
         </form>
